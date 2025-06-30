@@ -1,0 +1,361 @@
+# 🎯 PROMPT TEMPLATE COMPLET - APLICAȚIE MAGIC (SALOANELE MAGIC)
+
+## 📋 INFORMAȚII DE BAZĂ
+
+**Tip aplicație:** React Native cu Expo  
+**Backend existent:** Node.js API  
+**API URL:** `https://api.saloanelemagic.ro`  
+**Autentificare:** Bearer Token în header `X-Auth-Token`  
+
+---
+
+## 🎨 SPECIFICAȚII APLICAȚIE
+
+### **Pagini Required:**
+1. **Login Screen** - Email/Phone + Password
+2. **Main Screen** - Listă locații
+
+### **Features Required:**
+- [ ] Autentificare cu email/phone și parolă
+- [ ] Error handling pentru credențiale greșite
+- [ ] Token management și persistență
+- [ ] Listă locații din API
+- [ ] UI modern și responsive
+- [ ] Navigare între ecrane
+
+---
+
+## 🔧 CONFIGURARE TEHNICĂ
+
+### **Dependencies Required:**
+```json
+{
+  "@react-navigation/native": "^_____",
+  "@react-navigation/native-stack": "^_____",
+  "expo": "~_____",
+  "expo-secure-store": "~_____",
+  "axios": "^_____",
+  "react-native-safe-area-context": "^_____",
+  "react-native-screens": "^_____",
+  "expo-constants": "~_____",
+  "expo-status-bar": "~_____"
+}
+```
+
+### **API Configuration:**
+```javascript
+const API_CONFIG = {
+  BASE_URL: 'https://api.saloanelemagic.ro',
+  ENDPOINTS: {
+    CUSTOMER_LOGIN: '/api/customers/customerLogin',
+    CUSTOMER_CHECK_LOGIN: '/api/customers/checkLogin',
+    LOCATIONS: '/api/locations', // [COMPLETEAZĂ ENDPOINT REAL]
+    // [ADAUGĂ ALTE ENDPOINTS NECESARE]
+  },
+  HEADERS: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    // Authorization va fi adăugat dinamic
+  }
+}
+```
+
+---
+
+## 🏗️ STRUCTURA APLICAȚIE
+
+### **Folder Structure:**
+```
+src/
+├── components/
+│   ├── common/
+│   │   ├── Button.js
+│   │   ├── Input.js
+│   │   ├── Loading.js
+│   │   └── ErrorMessage.js
+│   └── screens/
+│       ├── LoginScreen.js
+│       └── MainScreen.js
+├── services/
+│   ├── api.js
+│   ├── auth.js
+│   └── storage.js
+├── navigation/
+│   └── AppNavigator.js
+├── utils/
+│   ├── constants.js
+│   └── helpers.js
+└── App.js
+```
+
+---
+
+## 📱 SCREEN SPECIFICATIONS
+
+### **1. Login Screen**
+
+**UI Elements:**
+- [ ] Logo/Header "Magic"
+- [ ] Input field pentru Email/Phone
+- [ ] Input field pentru Password (securizat)
+- [ ] Login Button
+- [ ] Loading indicator
+- [ ] Error message display
+- [ ] [OPTIONAL: Remember me checkbox]
+- [ ] [OPTIONAL: Forgot password link]
+
+**Functionality:**
+```javascript
+const loginData = {
+  phone: "email_sau_phone_aici", // [SPECIFICĂ TIPUL EXACT]
+  password: "parola_aici"
+}
+
+// API Call: POST /api/customers/customerLogin
+// Response Expected:
+{
+  "success": true,
+  "message": "Successfully logged in!",
+  "data": 475
+}
+// Headers Expected: X-Auth-Token cu JWT
+```
+
+**Error Handling:**
+- [ ] Credentials mismatch
+- [ ] Network errors
+- [ ] Server errors
+- [ ] Field validation
+- [ ] [SPECIFICĂ ALTE CAZURI DE EROARE]
+
+---
+
+### **2. Main Screen**
+
+**UI Elements:**
+- [ ] Header cu user info/logout
+- [ ] Search bar pentru locații
+- [ ] Lista de locații (FlatList/ScrollView)
+- [ ] Pull to refresh
+- [ ] Loading states
+- [ ] Empty state
+- [ ] [ADAUGĂ ALTE ELEMENTE UI]
+
+**Location Item Design:**
+```javascript
+// Exemplu structură item locație:
+{
+  id: "___",
+  name: "___",
+  address: "___", 
+  phone: "___",
+  // [COMPLETEAZĂ CU CÂMPURILE REALE DIN API]
+}
+```
+
+**Functionality:**
+```javascript
+// API Call cu token: GET /api/locations (sau endpoint real)
+// Headers: { 'X-Auth-Token': 'Bearer ${token}' }
+```
+
+---
+
+## 🔐 AUTENTIFICARE & SECURITATE
+
+### **Token Management:**
+```javascript
+// Token storage în Expo SecureStore
+const TokenService = {
+  async saveToken(token) {
+    // [IMPLEMENTEAZĂ SALVAREA SECURIZATĂ]
+  },
+  async getToken() {
+    // [IMPLEMENTEAZĂ CITIREA TOKEN-ULUI]
+  },
+  async removeToken() {
+    // [IMPLEMENTEAZĂ ȘTERGEREA TOKEN-ULUI]
+  }
+}
+```
+
+### **Auth Flow:**
+1. User introduce credențiale
+2. Call API login
+3. Salvează token din response header `X-Auth-Token`
+4. Redirect la Main Screen
+5. Pentru API calls ulterioare, folosește token în header
+
+---
+
+## 🎨 DESIGN SYSTEM
+
+### **Colors:**
+```javascript
+const COLORS = {
+  primary: '#_____', // [SPECIFICĂ CULOAREA PRINCIPALĂ]
+  secondary: '#_____',
+  success: '#_____',
+  error: '#_____',
+  warning: '#_____',
+  background: '#_____',
+  text: '#_____',
+  textSecondary: '#_____',
+  border: '#_____'
+}
+```
+
+### **Typography:**
+```javascript
+const FONTS = {
+  regular: '_____', // [SPECIFICĂ FONTURILE]
+  medium: '_____',
+  bold: '_____',
+  sizes: {
+    small: ___,
+    medium: ___,
+    large: ___,
+    xlarge: ___
+  }
+}
+```
+
+### **Spacing:**
+```javascript
+const SPACING = {
+  xs: ___,
+  sm: ___,
+  md: ___,
+  lg: ___,
+  xl: ___
+}
+```
+
+---
+
+## 🚀 IMPLEMENTARE STEPS
+
+### **Step 1: Project Setup**
+- [ ] Creează proiect Expo: `npx create-expo-app MagicApp`
+- [ ] Instalează dependencies
+- [ ] Configurează folder structure
+- [ ] Setup navigation
+
+### **Step 2: API Service**
+- [ ] Creează API service cu Axios
+- [ ] Implementează auth service
+- [ ] Setup token management
+- [ ] Test API connections
+
+### **Step 3: Login Screen**
+- [ ] Creează UI components
+- [ ] Implementează form validation
+- [ ] Connect cu API
+- [ ] Handle error states
+- [ ] Test login flow
+
+### **Step 4: Main Screen**
+- [ ] Creează UI pentru listă locații
+- [ ] Fetch data din API
+- [ ] Implementează refresh/loading
+- [ ] Style lista de locații
+- [ ] Test functionality
+
+### **Step 5: Navigation & Polish**
+- [ ] Setup stack navigation
+- [ ] Auth guards/protection
+- [ ] Polish UI/UX
+- [ ] Test complete flow
+- [ ] Handle edge cases
+
+---
+
+## 📋 CHECKLIST FINAL
+
+### **Functionality:**
+- [ ] Login cu credențiale reale
+- [ ] Token persistence
+- [ ] Logout functionality
+- [ ] Auto-login la revenire în app
+- [ ] Lista locații se încarcă corect
+- [ ] Error handling complet
+- [ ] Smooth navigation
+
+### **UI/UX:**
+- [ ] Design modern și profesional
+- [ ] Responsive pe toate device-urile
+- [ ] Loading states clear
+- [ ] Error messages utile
+- [ ] Smooth animations
+- [ ] Best practices pentru UX
+
+### **Code Quality:**
+- [ ] Cod clean și comentat
+- [ ] Componente reusable
+- [ ] Proper error handling
+- [ ] TypeScript (optional dar recomandat)
+- [ ] Performance optimizations
+
+---
+
+## 🔧 ÎNTREBĂRI PENTRU COMPLETARE
+
+1. **Care este endpoint-ul exact pentru lista locațiilor?**
+   - [ ] `/api/locations`
+   - [ ] `/api/departments`
+   - [ ] [ALT ENDPOINT]: ___________
+
+2. **Ce câmpuri exacte returnează API-ul pentru locații?**
+   ```javascript
+   // Completează structura:
+   {
+     id: "___",
+     name: "___",
+     // [ADAUGĂ CÂMPURILE REALE]
+   }
+   ```
+
+3. **Login se face cu email sau phone?**
+   - [ ] Email
+   - [ ] Phone
+   - [ ] Ambele
+
+4. **Ce culori/branding să folosesc pentru design?**
+   - Primary color: ___________
+   - Logo/Assets disponibile: ___________
+
+5. **Sunt necesare alte features pe Main Screen?**
+   - [ ] Search/Filter locații
+   - [ ] Map view
+   - [ ] Contact info pentru fiecare locație
+   - [ ] [ALTELE]: ___________
+
+6. **Ce tip de navigare vrei între ecrane?**
+   - [ ] Stack Navigation (push/pop)
+   - [ ] Tab Navigation
+   - [ ] Drawer Navigation
+
+7. **Sunt necesare permisiuni speciale?**
+   - [ ] Location access
+   - [ ] Camera/Photos
+   - [ ] Notifications
+   - [ ] [ALTELE]: ___________
+
+---
+
+## 🎯 DELIVERABLES
+
+La finalizare, aplicația va avea:
+
+1. ✅ **Aplicație React Native cu Expo completă și funcțională**
+2. ✅ **Login screen cu autentificare reală**
+3. ✅ **Main screen cu listă locații din API**
+4. ✅ **Error handling complet și professional**
+5. ✅ **Design modern și responsive**
+6. ✅ **Cod clean și documentat**
+7. ✅ **README cu instrucțiuni de setup și rulare**
+
+---
+
+**🚀 READY TO START IMPLEMENTATION!**
+
+*Completează spațiile marcate cu `[___]` și `[COMPLETEAZĂ]` înainte de a începe development-ul pentru a asigura că toate requirement-urile sunt clare.* 
